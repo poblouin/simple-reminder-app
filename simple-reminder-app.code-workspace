@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"eslint.options": {
+			"configFile": "/Users/pblouin/code/simple-reminder-app/.eslintrc.js",
+		},
+		"prettier.configPath": "/Users/pblouin/code/simple-reminder-app/.prettierrc",
+	},
+}
