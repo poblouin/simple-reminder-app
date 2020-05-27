@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import SimpleReminder from '../components/SimpleReminder.vue';
+import Today from '@/components/Today.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: SimpleReminder,
+    name: 'Today',
+    component: Today,
   },
   // {
   //   path: '/about',

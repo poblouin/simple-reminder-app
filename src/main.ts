@@ -1,16 +1,26 @@
 import Vue from 'vue';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import Vuetify from 'vuetify/lib';
 
 import App from './App.vue';
 import router from './router';
- 
-axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL;
 
-Vue.use(VueAxios, axios)
 Vue.config.productionTip = false;
+
+const vuetify = new Vuetify({
+  icons: {
+    iconfont: 'mdiSvg',
+  },
+});
+Vue.use(Vuetify);
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import VueFlatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/themes/airbnb.css';
+Vue.use(VueFlatPickr);
 
 new Vue({
   router,
+  vuetify,
   render: h => h(App),
 }).$mount('#app');
