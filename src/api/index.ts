@@ -15,7 +15,7 @@ export abstract class Api<E extends Entity> {
     this.entitiesName = entitiesName;
   }
 
-  private wrapper = (p: Promise<any>): Promise<any> =>
+  private wrapper = (p: Promise<AxiosResponse<E>>): Promise<any> =>
     p
       .then((result: AxiosResponse<E>) => ({ result, error: null }))
       .catch((error: AxiosError<E>) => ({ error, result: null }));
@@ -36,7 +36,9 @@ export abstract class Api<E extends Entity> {
   }
 
   async create(e: E): Promise<E> {
-    const { result, error } = await this.wrapper(axios.post(this.baseApiUrl, e.toAPI()));
+    const { result, error } = await this.wrapper(
+      axios.post(this.baseApiUrl, { [this.entityName]: e.toAPI() })
+    );
 
     this.processError(error);
 

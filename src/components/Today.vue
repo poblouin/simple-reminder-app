@@ -1,8 +1,8 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import ApiUsers from '@/api/users';
-import User from '@/entities/user';
+import ApiReminders from '@/api/reminders';
+import Reminder from '@/entities/reminder';
 import ReminderAddForm from '@/components/ReminderAddForm.vue';
 import ReminderCard from '@/components/ReminderCard.vue';
 
@@ -13,20 +13,26 @@ export default Vue.extend({
     ReminderCard,
   },
   data: () => ({
-    apiUsers: new ApiUsers(),
+    apiReminders: new ApiReminders(),
     showAddReminderForm: false,
-    users: new Array<User>(),
+    reminders: new Array<Reminder>(),
   }),
   async created() {
-    this.users = await this.apiUsers.getUsers();
+    this.reminders = await this.apiReminders.getReminders();
+  },
+  methods: {
+    async onClose() {
+      this.showAddReminderForm = false;
+      this.reminders = await this.apiReminders.getReminders();
+    },
   },
 });
 </script>
 
 <template>
   <div>
-    <ReminderCard :reminder="{}" />
-    <ReminderAddForm :dialog.sync="showAddReminderForm" @onClose="showAddReminderForm = false" />
+    <ReminderCard v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" />
+    <ReminderAddForm :dialog.sync="showAddReminderForm" @onClose="onClose" />
     <v-fab-transition>
       <v-btn
         class="add-btn"

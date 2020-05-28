@@ -7,7 +7,7 @@ interface Reminder {
   name: string;
   description: string;
   isDone: boolean;
-  dueTimestampUTC: Date;
+  dueTimestampUtc: Date;
   category: ReminderCategory | null;
   user: User | null;
 }
@@ -17,22 +17,26 @@ class Reminder implements Entity, Reminder {
   public name: string;
   public description: string;
   public isDone: boolean;
-  public dueTimestampUTC: Date;
+  public dueTimestampUtc: Date;
   public category: ReminderCategory | null;
   public user: User | null;
 
-  constructor(reminder: Reminder) {
+  constructor(reminder: any) {
     this.id = reminder.id;
     this.name = reminder.name;
     this.description = reminder.description;
     this.isDone = reminder.isDone;
-    this.dueTimestampUTC = reminder.dueTimestampUTC;
+    this.dueTimestampUtc = reminder.dueTimestampUtc;
     this.category = reminder.category;
     this.user = reminder.user;
   }
 
   toAPI(): object {
-    throw new Error('Method not implemented.');
+    return {
+      name: this.name,
+      dueTimestampUtc: this.dueTimestampUtc,
+      description: this.description,
+    };
   }
 }
 

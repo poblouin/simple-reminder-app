@@ -6,7 +6,7 @@ export default class ApiUsers extends Api<User> {
     super('/users', 'user', 'users');
   }
 
-  getUsers(filters?: Array<string>): Array<User> {
+  getUsers(filters?: Array<string>): Promise<Array<User>> {
     return this.getAll(filters).then(data => data);
   }
 }

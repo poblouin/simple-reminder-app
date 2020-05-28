@@ -1,5 +1,6 @@
 <script lang="ts">
 import ApiReminders from '@/api/reminders';
+import Reminder from '@/entities/reminder';
 
 export default {
   name: 'ReminderAddForm',
@@ -35,7 +36,7 @@ export default {
   },
   computed: {
     formIsValid() {
-      return this.form.name && this.form.dateTime;
+      return this.$refs.form.validate();
     },
   },
   methods: {
@@ -43,8 +44,20 @@ export default {
       this.form = Object.assign({}, this.defaultForm);
       this.$refs.form.reset();
     },
-    submit() {
+    async submit() {
+      if (!this.formIsValid) {
+        return;
+      }
+
+      await this.apiReminders.createReminder(
+        new Reminder({
+          name: this.form.name,
+          description: this.form.description,
+          dueTimestampUtc: new Date(this.form.dateTime).getTime(),
+        })
+      );
       this.resetForm();
+      this.$emit('onClose');
     },
   },
 };
@@ -61,15 +74,15 @@ export default {
           <v-toolbar-title>New Reminder</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="$emit('onClose')">Save</v-btn>
+            <v-btn dark text @click="submit">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
 
         <v-form ref="form" @submit.prevent="submit">
           <v-container fluid>
-            <v-row align="center" justify="center" v-scroll>
+            <v-row v-scroll align="center" justify="center">
               <v-col>
-              <v-subheader class="header">Reminder</v-subheader>
+                <v-subheader class="header">Reminder</v-subheader>
                 <v-row>
                   <v-col cols="12" sm="6">
                     <v-text-field
@@ -93,8 +106,8 @@ export default {
                   <v-col cols="12" sm="6">
                     <v-input label="Date/Time">
                       <flat-pickr
-                        class="date-time"
                         v-model="form.dateTime"
+                        class="date-time"
                         :config="flatpickrConfig"
                         placeholder="Select date"
                         name="date"
@@ -115,6 +128,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   padding: 0;
+  height: 0;
 }
 
 .date-time {

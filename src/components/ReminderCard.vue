@@ -1,21 +1,24 @@
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 
-import ApiUsers from '@/api/users';
-import User from '@/entities/user';
+import Reminder from '@/entities/reminder';
 
 export default Vue.extend({
   name: 'ReminderCard',
   props: {
     reminder: {
-      type: Object,
+      type: Object as PropType<Reminder>,
       required: true,
     },
   },
-  data: () => ({
-    apiUsers: new ApiUsers(),
-    users: new Array<User>(),
-  }),
+  computed: {
+    dateDisplay(): string {
+      return `${this.reminder.dueTimestampUtc.getHours()}:${this.reminder.dueTimestampUtc
+        .getMinutes()
+        .toString()
+        .padEnd(2, '0')}`;
+    },
+  },
   methods: {
     markDone() {
       console.log('done');
@@ -35,12 +38,13 @@ export default Vue.extend({
           left: () => postpone(),
           right: () => markDone(),
         }"
-        color="#385F73"
+        color="grey darken-1"
         dark
+        outlined
       >
-        <v-card-title class="headline">Reminder</v-card-title>
-
-        <v-card-subtitle>Reminder description</v-card-subtitle>
+        <v-card-title class="headline">{{ reminder.name }}</v-card-title>
+        <v-card-subtitle>Due at {{ dateDisplay }}</v-card-subtitle>
+        <v-card-text>{{ reminder.description }}</v-card-text>
       </v-card>
     </v-col>
   </v-row>
