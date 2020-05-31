@@ -11,14 +11,17 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "luxon": "^1.24.1",
     "vue": "^2.6.11",
-    "vue-flatpickr-component": "^8.1.5",
+    "vue-datetime": "^1.0.0-beta.13",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.2.11",
+    "weekstart": "^1.0.1"
   },
   "devDependencies": {
     "@mdi/js": "^5.3.45",
     "@types/jest": "^24.0.19",
+    "@types/vue-datetime": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@vue/cli-plugin-babel": "~4.3.0",

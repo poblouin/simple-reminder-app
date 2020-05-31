@@ -13,11 +13,6 @@ const vuetify = new Vuetify({
 });
 Vue.use(Vuetify);
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import VueFlatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/themes/airbnb.css';
-Vue.use(VueFlatPickr);
 
 new Vue({
   router,

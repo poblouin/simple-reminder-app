@@ -4,7 +4,7 @@ import ReminderCategory from '@/entities/reminder-category';
 
 interface Reminder {
   id: number;
-  name: string;
+  reminderName: string;
   description: string;
   isDone: boolean;
   dueTimestampUtc: Date;
@@ -14,7 +14,7 @@ interface Reminder {
 
 class Reminder implements Entity, Reminder {
   public id: number;
-  public name: string;
+  public reminderName: string;
   public description: string;
   public isDone: boolean;
   public dueTimestampUtc: Date;
@@ -23,7 +23,7 @@ class Reminder implements Entity, Reminder {
 
   constructor(reminder: any) {
     this.id = reminder.id;
-    this.name = reminder.name;
+    this.reminderName = reminder.reminderName;
     this.description = reminder.description;
     this.isDone = reminder.isDone;
     this.dueTimestampUtc = reminder.dueTimestampUtc;
@@ -33,9 +33,10 @@ class Reminder implements Entity, Reminder {
 
   toAPI(): object {
     return {
-      name: this.name,
+      reminderName: this.reminderName,
       dueTimestampUtc: this.dueTimestampUtc,
       description: this.description,
+      ...(this.category ? { category: this.category } : {}),
     };
   }
 }

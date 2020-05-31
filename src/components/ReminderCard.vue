@@ -12,6 +12,9 @@ export default Vue.extend({
     },
   },
   computed: {
+    colorDisplay(): string {
+      return this.reminder.category ? this.reminder.category?.color : 'grey darken-2';
+    },
     dateDisplay(): string {
       return `${this.reminder.dueTimestampUtc.getHours()}:${this.reminder.dueTimestampUtc
         .getMinutes()
@@ -38,11 +41,11 @@ export default Vue.extend({
           left: () => postpone(),
           right: () => markDone(),
         }"
-        color="grey darken-1"
+        :color="colorDisplay"
         dark
         outlined
       >
-        <v-card-title class="headline">{{ reminder.name }}</v-card-title>
+        <v-card-title class="headline">{{ reminder.reminderName }}</v-card-title>
         <v-card-subtitle>Due at {{ dateDisplay }}</v-card-subtitle>
         <v-card-text>{{ reminder.description }}</v-card-text>
       </v-card>

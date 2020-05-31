@@ -2,18 +2,18 @@ import Entity from '@/entities';
 
 interface ReminderCategory {
   id: number;
-  name: string;
+  categoryName: string;
   color: string;
 }
 
 class ReminderCategory implements Entity, ReminderCategory {
   public id: number;
-  public name: string;
+  public categoryName: string;
   public color: string;
 
   constructor(reminderCategory: ReminderCategory) {
     this.id = reminderCategory.id;
-    this.name = reminderCategory.name;
+    this.categoryName = reminderCategory.categoryName;
     this.color = reminderCategory.color;
   }
 

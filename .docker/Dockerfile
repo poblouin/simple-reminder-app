@@ -7,7 +7,7 @@ COPY . .
 
 # build stage
 FROM develop-stage as build-stage
-RUN npm run build build
+RUN npm run build
 
 # production stage
 FROM nginx:alpine as production-stage

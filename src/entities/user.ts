@@ -2,20 +2,20 @@ import Entity from '@/entities';
 
 interface User {
   id: number;
-  name: string;
+  userName: string;
   email: string;
   phone: string;
 }
 
 class User implements Entity, User {
   public id: number;
-  public name: string;
+  public userName: string;
   public email: string;
   public phone: string;
 
   constructor(user: User) {
     this.id = user.id;
-    this.name = user.name;
+    this.userName = user.userName;
     this.email = user.email;
     this.phone = user.phone;
   }
