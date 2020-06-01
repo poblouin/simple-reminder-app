@@ -1,7 +1,6 @@
 import Entity from '@/entities';
 
 interface ReminderCategory {
-  id: number;
   categoryName: string;
   color: string;
 }

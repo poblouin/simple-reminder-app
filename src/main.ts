@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import Toasted from 'vue-toasted';
 
 import App from './App.vue';
 import router from './router';
@@ -13,6 +14,7 @@ const vuetify = new Vuetify({
 });
 Vue.use(Vuetify);
 
+Vue.use(Toasted, { duration: 5000 });
 
 new Vue({
   router,

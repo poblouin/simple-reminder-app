@@ -13,6 +13,10 @@ export default class ApiReminders extends Api<Reminder> {
   }
 
   createReminder(reminder: Reminder): Promise<Reminder> {
-    return this.create(reminder).then(r => r);
+    return this.create(reminder).then(r => new Reminder(r));
+  }
+
+  updateReminder(reminder: Reminder): Promise<Reminder> {
+    return this.update(reminder).then(r => new Reminder(r));
   }
 }

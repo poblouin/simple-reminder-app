@@ -44,4 +44,12 @@ export abstract class Api<E extends Entity> {
 
     return result.data[this.entityName];
   }
+
+  async update(e: E): Promise<E> {
+    const { result, error } = await this.wrapper(axios.put(`${this.baseApiUrl}/${e.id}/mark-done`));
+
+    this.processError(error);
+
+    return result.data[this.entityName];
+  }
 }

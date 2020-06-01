@@ -3,7 +3,6 @@ import User from '@/entities/user';
 import ReminderCategory from '@/entities/reminder-category';
 
 interface Reminder {
-  id: number;
   reminderName: string;
   description: string;
   isDone: boolean;

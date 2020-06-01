@@ -2,6 +2,7 @@
 import Vue, { PropType } from 'vue';
 
 import Reminder from '@/entities/reminder';
+import ApiReminders from '@/api/reminders';
 
 export default Vue.extend({
   name: 'ReminderCard',
@@ -11,6 +12,9 @@ export default Vue.extend({
       required: true,
     },
   },
+  data: () => ({
+    apiReminders: new ApiReminders(),
+  }),
   computed: {
     colorDisplay(): string {
       return this.reminder.category ? this.reminder.category?.color : 'grey darken-2';
@@ -23,8 +27,13 @@ export default Vue.extend({
     },
   },
   methods: {
-    markDone() {
-      console.log('done');
+    async markDone() {
+      try {
+        await this.apiReminders.update(this.reminder);
+        this.$toasted.success('marked done!');
+      } catch {
+        this.$toasted.error('could not mark done');
+      }
     },
     postpone() {
       console.log('postpone');

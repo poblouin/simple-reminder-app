@@ -1,7 +1,6 @@
 import Entity from '@/entities';
 
 interface User {
-  id: number;
   userName: string;
   email: string;
   phone: string;
