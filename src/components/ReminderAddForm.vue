@@ -87,17 +87,22 @@ export default {
         return;
       }
 
-      await this.apiReminders.createReminder(
-        new Reminder({
-          reminderName: this.form.reminder.reminderName,
-          description: this.form.reminder.description,
-          dueTimestampUtc: new Date(this.form.reminder.dateTime).getTime(),
-          category: new ReminderCategory(this.form.category),
-        })
-      );
+      try {
+        await this.apiReminders.createReminder(
+          new Reminder({
+            reminderName: this.form.reminder.reminderName,
+            description: this.form.reminder.description,
+            dueTimestampUtc: new Date(this.form.reminder.dateTime).getTime(),
+            category: new ReminderCategory(this.form.category),
+          })
+        );
 
-      this.getCategories();
-      this.close();
+        this.$toasted.success('Reminder created!');
+        this.getCategories();
+        this.close();
+      } catch (err) {
+        this.$toasted.error(`Error creating reminder: ${err}`);
+      }
     },
     close() {
       this.resetForm();
