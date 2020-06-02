@@ -30,6 +30,7 @@ export default Vue.extend({
     async markDone() {
       try {
         await this.apiReminders.update(this.reminder);
+        this.$emit('onMarkDone');
         this.$toasted.success('marked done!');
       } catch {
         this.$toasted.error('could not mark done');

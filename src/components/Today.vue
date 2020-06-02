@@ -18,20 +18,28 @@ export default Vue.extend({
     reminders: new Array<Reminder>(),
   }),
   async created() {
-    this.reminders = await this.apiReminders.getReminders();
+    this.reminders = await this.refresh();
   },
   methods: {
     async onClose() {
       this.showAddReminderForm = false;
-      this.reminders = await this.apiReminders.getReminders();
+      this.reminders = await this.refresh();
     },
+    refresh() {
+      return this.apiReminders.getReminders();
+    }
   },
 });
 </script>
 
 <template>
   <div>
-    <ReminderCard v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" />
+    <ReminderCard
+      v-for="reminder in reminders"
+      :key="reminder.id"
+      :reminder="reminder"
+      @onMarkDone="refresh"
+    />
     <ReminderAddForm :dialog.sync="showAddReminderForm" @onClose="onClose" />
     <v-fab-transition>
       <v-btn
