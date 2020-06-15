@@ -1,4 +1,5 @@
 <script lang="ts">
+import Vue from 'vue';
 import { Datetime } from 'vue-datetime';
 
 import ApiReminders from '@/api/reminders';
@@ -28,7 +29,7 @@ const COLORS = Object.freeze([
   'grey',
 ]);
 
-export default {
+export default Vue.extend({
   name: 'ReminderAddForm',
   components: {
     Datetime,
@@ -42,34 +43,34 @@ export default {
   data() {
     const defaultForm = Object.freeze({
       reminder: {
-        name: '',
+        reminderName: '',
         description: '',
         dateTime: new Date().toISOString(),
       },
       category: {
-        name: '',
+        categoryName: '',
         color: '',
       },
     });
 
     return {
+      COLORS: COLORS,
       apiReminders: new ApiReminders(),
       apiReminderCategories: new ApiReminderCategories(),
-      categories: Array<ReminderCategory>(),
+      categories: Array<any>(),
       form: Object.assign({}, defaultForm),
       rules: {
-        required: [val => (val || '').length > 0 || 'This field is required'],
+        required: [(val: any) => (val || '').length > 0 || 'This field is required'],
       },
       defaultForm,
     };
   },
   computed: {
-    formIsValid() {
-      return this.$refs.form.validate();
+    formIsValid(): boolean {
+      return (this.$refs.form as Vue & { validate: () => boolean }).validate();
     },
   },
   async created() {
-    this.COLORS = COLORS;
     this.getCategories();
   },
   methods: {
@@ -109,7 +110,7 @@ export default {
       this.$emit('onClose');
     },
   },
-};
+});
 </script>
 
 <template>

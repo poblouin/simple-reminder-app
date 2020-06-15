@@ -10,7 +10,7 @@ class ReminderCategory implements Entity, ReminderCategory {
   public categoryName: string;
   public color: string;
 
-  constructor(reminderCategory: ReminderCategory) {
+  constructor(reminderCategory: any) {
     this.id = reminderCategory.id;
     this.categoryName = reminderCategory.categoryName;
     this.color = reminderCategory.color;

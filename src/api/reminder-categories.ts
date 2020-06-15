@@ -1,5 +1,5 @@
 import { Api } from '@/api';
-import ReminderCategory from '@/entities/reminder';
+import ReminderCategory from '@/entities/reminder-category';
 
 export default class ApiReminderCategories extends Api<ReminderCategory> {
   constructor() {

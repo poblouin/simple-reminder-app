@@ -27,7 +27,7 @@ export default Vue.extend({
     },
     refresh() {
       return this.apiReminders.getReminders();
-    }
+    },
   },
 });
 </script>
