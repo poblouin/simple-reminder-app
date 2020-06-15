@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  webapp:
+  webapp-dev:
     build:
       context: .
       target: "develop-stage"
@@ -11,3 +11,11 @@ services:
       - ".:/app:delegated"
       - "/app/node_modules/"
     command: ["npm", "run", "serve"]
+
+    webapp:
+      build:
+        context: .
+        target: "production-stage"
+        dockerfile: "./.docker/Dockerfile"
+      ports:
+        - "127.0.0.1:8080:8080"
