@@ -4,7 +4,6 @@ services:
     build:
       context: .
       target: "develop-stage"
-      dockerfile: "./.docker/Dockerfile"
     ports:
       - "127.0.0.1:8080:8080"
     volumes:
@@ -16,6 +15,5 @@ services:
     build:
       context: .
       target: "production-stage"
-      dockerfile: "./.docker/Dockerfile"
     ports:
       - "127.0.0.1:8080:8080"
