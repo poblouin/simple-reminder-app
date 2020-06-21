@@ -6,11 +6,11 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-list-item>

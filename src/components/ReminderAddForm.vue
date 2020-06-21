@@ -57,7 +57,7 @@ export default Vue.extend({
       COLORS: COLORS,
       apiReminders: new ApiReminders(),
       apiReminderCategories: new ApiReminderCategories(),
-      categories: Array<any>(),
+      categories: new Array<any>(),
       form: Object.assign({}, defaultForm),
       rules: {
         required: [(val: any) => (val || '').length > 0 || 'This field is required'],
@@ -94,7 +94,10 @@ export default Vue.extend({
             reminderName: this.form.reminder.reminderName,
             description: this.form.reminder.description,
             dueTimestampUtc: new Date(this.form.reminder.dateTime).getTime(),
-            category: new ReminderCategory(this.form.category),
+            category:
+              this.form.category?.categoryName !== ''
+                ? new ReminderCategory(this.form.category)
+                : null,
           })
         );
 

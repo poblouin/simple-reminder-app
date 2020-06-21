@@ -1,12 +1,13 @@
 import { Api } from '@/api';
 import Reminder from '@/entities/reminder';
+import ReminderFilters from '@/interfaces/reminder-filters';
 
 export default class ApiReminders extends Api<Reminder> {
   constructor() {
     super('/reminders', 'reminder', 'reminders');
   }
 
-  getReminders(filters?: Array<string>): Promise<Array<Reminder>> {
+  getReminders(filters?: ReminderFilters): Promise<Array<Reminder>> {
     return this.getAll(filters).then(data => {
       return data.map(r => new Reminder({ ...r, dueTimestampUtc: new Date(r.dueTimestampUtc) }));
     });

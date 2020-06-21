@@ -27,8 +27,8 @@ export abstract class Api<E extends Entity> {
     }
   };
 
-  async getAll(filters?: Array<string>): Promise<Array<E>> {
-    const { result, error } = await this.wrapper(axios.get(this.baseApiUrl));
+  async getAll(filters?: any): Promise<Array<E>> {
+    const { result, error } = await this.wrapper(axios.get(this.baseApiUrl, { params: filters }));
 
     this.processError(error);
 
