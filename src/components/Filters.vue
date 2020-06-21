@@ -16,8 +16,9 @@
 
 <script lang="ts">
 import snakecase from 'lodash.snakecase';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: 'Filters',
   data() {
     return {
