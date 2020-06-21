@@ -6,7 +6,6 @@ import Reminder from '@/entities/reminder';
 import Filters from '@/components/Filters.vue';
 import ReminderAddForm from '@/components/ReminderAddForm.vue';
 import ReminderCard from '@/components/ReminderCard.vue';
-import ReminderFilters from '@/interfaces/reminder-filters.ts';
 
 export default Vue.extend({
   name: 'Today',
@@ -29,7 +28,7 @@ export default Vue.extend({
     refresh() {
       return this.apiReminders.getReminders(this.filters);
     },
-    async onFiltersChange(filters) {
+    async onFiltersChange(filters: any) {
       this.filters = filters;
       this.reminders = await this.refresh();
     },

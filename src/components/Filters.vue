@@ -17,14 +17,16 @@
 <script lang="ts">
 import snakecase from 'lodash.snakecase';
 import Vue from 'vue';
+import ApiReminderFilters from '@/interfaces/reminder-filters';
 
 export default Vue.extend({
   name: 'Filters',
   data() {
     return {
       filters: {
-        isDone: false,
-      },
+        // eslint-disable-next-line
+        is_done: false,
+      } as ApiReminderFilters,
     };
   },
   created() {
@@ -36,7 +38,9 @@ export default Vue.extend({
         'onFiltersChange',
         Object.assign(
           {},
-          ...Object.keys(this.filters).map(k => ({ [snakecase(k)]: this.filters[k] }))
+          ...Object.keys(this.filters).map(k => ({
+            [snakecase(k)]: this.filters[k],
+          }))
         )
       );
     },

@@ -9,5 +9,9 @@
 			"configFile": "/Users/pblouin/code/simple-reminder-app/.eslintrc.js",
 		},
 		"prettier.configPath": "/Users/pblouin/code/simple-reminder-app/.prettierrc",
+		"typescript.tsdk": "/Users/pblouin/.nvm/versions/node/v12.18.1/lib/node_modules/typescript/lib",
+		"typescript.tsc.autoDetect": "watch",
+		"typescript.tsserver.log": "normal",
+		"typescript.validate.enable": true
 	},
 }

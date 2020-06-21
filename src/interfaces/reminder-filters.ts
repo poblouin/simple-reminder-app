@@ -1,3 +1,4 @@
-export default interface ReminderFilters {
-  showMarkedDone: boolean;
+export default interface ApiReminderFilters {
+  is_done: boolean;
+  [key: string]: any;
 }
