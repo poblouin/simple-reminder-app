@@ -20,9 +20,17 @@ export abstract class Api<E extends Entity> {
       .then((result: AxiosResponse<E>) => ({ result, error: null }))
       .catch((error: AxiosError<E>) => ({ error, result: null }));
 
-  private processError = (err: AxiosError<E> | null): void => {
+  private processError = (err: any): void => {
     if (err) {
-      console.log(err.toJSON());
+      let displayErr;
+
+      try {
+        displayErr = err.toJSON();
+      } catch (_) {
+        displayErr = err;
+      }
+
+      console.log(displayErr);
       throw err;
     }
   };

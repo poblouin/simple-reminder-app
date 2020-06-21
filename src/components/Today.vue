@@ -6,6 +6,7 @@ import Reminder from '@/entities/reminder';
 import Filters from '@/components/Filters.vue';
 import ReminderAddForm from '@/components/ReminderAddForm.vue';
 import ReminderCard from '@/components/ReminderCard.vue';
+import { ReminderPeriod } from '@/types/index';
 
 export default Vue.extend({
   name: 'Today',
@@ -18,7 +19,9 @@ export default Vue.extend({
     apiReminders: new ApiReminders(),
     showAddReminderForm: false,
     reminders: new Array<Reminder>(),
-    filters: null,
+    filters: {
+      period: ReminderPeriod.TODAY,
+    },
   }),
   methods: {
     async onClose() {
@@ -29,7 +32,11 @@ export default Vue.extend({
       return this.apiReminders.getReminders(this.filters);
     },
     async onFiltersChange(filters: any) {
-      this.filters = filters;
+      this.filters = {
+        ...this.filters,
+        ...filters,
+      };
+
       this.reminders = await this.refresh();
     },
   },

@@ -24,7 +24,7 @@ export default Vue.extend({
   data() {
     return {
       filters: {
-        // eslint-disable-next-line
+        // eslint-disable-next-line @typescript-eslint/camelcase
         is_done: false,
       } as ApiReminderFilters,
     };

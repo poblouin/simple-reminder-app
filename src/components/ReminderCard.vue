@@ -1,4 +1,5 @@
 <script lang="ts">
+import moment from 'moment'
 import Vue, { PropType } from 'vue';
 
 import Reminder from '@/entities/reminder';
@@ -20,10 +21,7 @@ export default Vue.extend({
       return this.reminder.category ? this.reminder.category?.color : 'grey darken-2';
     },
     dateDisplay(): string {
-      return `${this.reminder.dueTimestampUtc.getHours()}:${this.reminder.dueTimestampUtc
-        .getMinutes()
-        .toString()
-        .padEnd(2, '0')}`;
+      return moment.utc(this.reminder.dueTimestampUtc).format('HH:mm');
     },
   },
   methods: {
