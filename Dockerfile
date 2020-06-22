@@ -5,17 +5,19 @@ COPY package*.json ./
 RUN npm ci --silent
 COPY . .
 
-# build stage
-FROM arm32v7/node:lts-slim as prebuild-stage
+# builder
+FROM arm32v7/node:lts-slim as builder
 WORKDIR /app
-COPY package*.json ".env" ".env.production" ./
+COPY package*.json ./
 RUN apt-get update \ 
     && apt-get install -y python make g++ --no-install-recommends \
     && npm ci --silent
-COPY . .
 
-FROM prebuild-stage as build-stage
-RUN npm run build
+FROM arm32v7/node:lts-slim as build-stage
+WORKDIR /app
+COPY package*.json ".env" ".env.production" ./
+COPY --from=builder /app/node_modules .
+COPY . .
 
 # production-stage
 FROM  arm32v7/nginx:alpine as production-stage

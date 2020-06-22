@@ -1,5 +1,5 @@
 <script lang="ts">
-import moment from 'moment'
+import moment from 'moment';
 import Vue, { PropType } from 'vue';
 
 import Reminder from '@/entities/reminder';
