@@ -63,6 +63,7 @@ export default Vue.extend({
         required: [(val: any) => (val || '').length > 0 || 'This field is required'],
       },
       defaultForm,
+      offsetTop: 0,
     };
   },
   computed: {
@@ -74,7 +75,7 @@ export default Vue.extend({
     this.getCategories();
   },
   methods: {
-    onScroll(e) {
+    onScroll(e: any) {
       this.offsetTop = e.target.scrollTop;
     },
     resetForm() {

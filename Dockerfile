@@ -16,8 +16,9 @@ RUN apt-get update \
 FROM arm32v7/node:lts-slim as build-stage
 WORKDIR /app
 COPY package*.json ".env" ".env.production" ./
-COPY --from=builder /app/node_modules .
+COPY --from=builder /app/node_modules /app/node_modules
 COPY . .
+RUN npm run build
 
 # production-stage
 FROM  arm32v7/nginx:alpine as production-stage
