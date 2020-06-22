@@ -74,6 +74,9 @@ export default Vue.extend({
     this.getCategories();
   },
   methods: {
+    onScroll(e) {
+      this.offsetTop = e.target.scrollTop;
+    },
     resetForm() {
       this.form = Object.assign({}, this.defaultForm);
     },
@@ -132,8 +135,8 @@ export default Vue.extend({
         </v-toolbar>
 
         <v-form ref="form" @submit.prevent="submit">
-          <v-container fluid>
-            <v-row v-scroll align="center" justify="center">
+          <v-container id="scroll-target" fluid>
+            <v-row v-scroll:#scroll-target="onScroll" align="center" justify="center">
               <v-col>
                 <v-subheader class="header">Reminder</v-subheader>
                 <v-row>

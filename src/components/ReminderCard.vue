@@ -21,7 +21,7 @@ export default Vue.extend({
       return this.reminder.category ? this.reminder.category?.color : 'grey darken-2';
     },
     dateDisplay(): string {
-      return moment.utc(this.reminder.dueTimestampUtc).format('HH:mm');
+      return moment(this.reminder.dueTimestampUtc).format('HH:mm');
     },
   },
   methods: {
