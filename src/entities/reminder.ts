@@ -8,7 +8,7 @@ interface Reminder {
   isDone: boolean;
   dueTimestampUtc: Date;
   category: ReminderCategory | null;
-  user: User | null;
+  reminderUser: User | null;
 }
 
 class Reminder implements Entity, Reminder {
@@ -18,7 +18,7 @@ class Reminder implements Entity, Reminder {
   public isDone: boolean;
   public dueTimestampUtc: Date;
   public category: ReminderCategory | null;
-  public user: User | null;
+  public reminderUser: User | null;
 
   constructor(reminder: any) {
     this.id = reminder.id;
@@ -27,7 +27,7 @@ class Reminder implements Entity, Reminder {
     this.isDone = reminder.isDone;
     this.dueTimestampUtc = reminder.dueTimestampUtc;
     this.category = reminder.category;
-    this.user = reminder.user;
+    this.reminderUser = reminder.reminderUser;
   }
 
   toAPI(): object {
@@ -36,6 +36,7 @@ class Reminder implements Entity, Reminder {
       dueTimestampUtc: this.dueTimestampUtc,
       description: this.description,
       ...(this.category ? { category: this.category } : {}),
+      ...(this.reminderUser ? { reminderUser: this.reminderUser } : {}),
     };
   }
 }

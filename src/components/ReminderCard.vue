@@ -23,6 +23,9 @@ export default Vue.extend({
     dateDisplay(): string {
       return moment(this.reminder.dueTimestampUtc).format('HH:mm');
     },
+    userDisplay(): string {
+      return this.reminder.reminderUser ? this.reminder.reminderUser.userName : null;
+    },
   },
   methods: {
     async markDone() {
@@ -35,7 +38,7 @@ export default Vue.extend({
       }
     },
     postpone() {
-      console.log('postpone');
+      this.$toasted.info('Postpone is not implemented yet');
     },
   },
 });
@@ -54,7 +57,10 @@ export default Vue.extend({
         outlined
       >
         <v-card-title class="headline">{{ reminder.reminderName }}</v-card-title>
-        <v-card-subtitle>Due at {{ dateDisplay }}</v-card-subtitle>
+        <v-card-subtitle
+          >Due at {{ dateDisplay }}{{ userDisplay ? ' - For user ' : ''
+          }}{{ userDisplay }}</v-card-subtitle
+        >
         <v-card-text>{{ reminder.description }}</v-card-text>
       </v-card>
     </v-col>

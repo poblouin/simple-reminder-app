@@ -4,6 +4,7 @@ import { Datetime } from 'vue-datetime';
 
 import ApiReminders from '@/api/reminders';
 import ApiReminderCategories from '@/api/reminder-categories';
+import ApiUsers from '@/api/users';
 import Reminder from '@/entities/reminder';
 import ReminderCategory from '@/entities/reminder-category';
 
@@ -51,13 +52,14 @@ export default Vue.extend({
         categoryName: '',
         color: '',
       },
+      reminderUser: null,
     });
 
     return {
       COLORS: COLORS,
       apiReminders: new ApiReminders(),
       apiReminderCategories: new ApiReminderCategories(),
-      categories: new Array<any>(),
+      apiUsers: new ApiUsers(),
       form: Object.assign({}, defaultForm),
       rules: {
         required: [(val: any) => (val || '').length > 0 || 'This field is required'],
@@ -73,6 +75,7 @@ export default Vue.extend({
   },
   async created() {
     this.getCategories();
+    this.getUsers();
   },
   methods: {
     onScroll(e: any) {
@@ -85,6 +88,12 @@ export default Vue.extend({
       this.categories = (await this.apiReminderCategories.getReminderCategories()).map(rc => ({
         text: `${rc.categoryName} - ${rc.color}`,
         value: rc,
+      }));
+    },
+    async getUsers() {
+      this.reminderUsers = (await this.apiUsers.getUsers()).map(u => ({
+        text: `${u.userName}`,
+        value: u,
       }));
     },
     async submit() {
@@ -102,6 +111,7 @@ export default Vue.extend({
               this.form.category?.categoryName !== ''
                 ? new ReminderCategory(this.form.category)
                 : null,
+            reminderUser: this.form.reminderUser,
           })
         );
 
@@ -200,6 +210,16 @@ export default Vue.extend({
                       v-model="form.category.color"
                       :items="COLORS"
                       label="Color"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-subheader class="header">User</v-subheader>
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-select
+                      v-model="form.reminderUser"
+                      :items="reminderUsers"
+                      label="Available Users"
                     ></v-select>
                   </v-col>
                 </v-row>
