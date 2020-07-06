@@ -7,6 +7,8 @@ import ApiReminderCategories from '@/api/reminder-categories';
 import ApiUsers from '@/api/users';
 import Reminder from '@/entities/reminder';
 import ReminderCategory from '@/entities/reminder-category';
+import User from '@/entities/user';
+import { RecurrenceFrequency } from '@/types';
 
 const COLORS = Object.freeze([
   'red',
@@ -53,6 +55,10 @@ export default Vue.extend({
         color: '',
       },
       reminderUser: null,
+      recurrence: {
+        frequency: null,
+        untilUtc: null,
+      },
     });
 
     return {
@@ -61,11 +67,17 @@ export default Vue.extend({
       apiReminderCategories: new ApiReminderCategories(),
       apiUsers: new ApiUsers(),
       form: Object.assign({}, defaultForm),
+      frequencies: Object.values(RecurrenceFrequency).map(f => ({
+        text: f,
+        value: f,
+      })),
       rules: {
         required: [(val: any) => (val || '').length > 0 || 'This field is required'],
       },
       defaultForm,
       offsetTop: 0,
+      categories: Array<any>(),
+      reminderUsers: Array<any>(),
     };
   },
   computed: {
@@ -112,6 +124,7 @@ export default Vue.extend({
                 ? new ReminderCategory(this.form.category)
                 : null,
             reminderUser: this.form.reminderUser,
+            recurrence: this.form.recurrence.frequency ? this.form.recurrence : null,
           })
         );
 
@@ -220,6 +233,16 @@ export default Vue.extend({
                       v-model="form.reminderUser"
                       :items="reminderUsers"
                       label="Available Users"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-subheader class="header">Recurrence</v-subheader>
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-select
+                      v-model="form.recurrence.frequency"
+                      :items="frequencies"
+                      label="Frequency"
                     ></v-select>
                   </v-col>
                 </v-row>

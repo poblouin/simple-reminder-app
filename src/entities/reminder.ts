@@ -1,6 +1,7 @@
 import Entity from '@/entities';
 import User from '@/entities/user';
 import ReminderCategory from '@/entities/reminder-category';
+import ReminderRecurrence from '@/entities/reminder-recurrence';
 
 interface Reminder {
   reminderName: string;
@@ -9,6 +10,7 @@ interface Reminder {
   dueTimestampUtc: Date;
   category: ReminderCategory | null;
   reminderUser: User | null;
+  recurrence: ReminderRecurrence | null;
 }
 
 class Reminder implements Entity, Reminder {
@@ -19,6 +21,7 @@ class Reminder implements Entity, Reminder {
   public dueTimestampUtc: Date;
   public category: ReminderCategory | null;
   public reminderUser: User | null;
+  public recurrence: ReminderRecurrence | null;
 
   constructor(reminder: any) {
     this.id = reminder.id;
@@ -28,6 +31,7 @@ class Reminder implements Entity, Reminder {
     this.dueTimestampUtc = reminder.dueTimestampUtc;
     this.category = reminder.category;
     this.reminderUser = reminder.reminderUser;
+    this.recurrence = reminder.recurrence;
   }
 
   toAPI(): object {
@@ -37,6 +41,7 @@ class Reminder implements Entity, Reminder {
       description: this.description,
       ...(this.category ? { category: this.category } : {}),
       ...(this.reminderUser ? { reminderUser: this.reminderUser } : {}),
+      ...(this.recurrence ? { recurrence: this.recurrence } : {}),
     };
   }
 }

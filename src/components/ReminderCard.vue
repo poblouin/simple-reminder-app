@@ -23,7 +23,7 @@ export default Vue.extend({
     dateDisplay(): string {
       return moment(this.reminder.dueTimestampUtc).format('HH:mm');
     },
-    userDisplay(): string {
+    userDisplay(): string | null {
       return this.reminder.reminderUser ? this.reminder.reminderUser.userName : null;
     },
   },
